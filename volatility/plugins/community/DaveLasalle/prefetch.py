@@ -223,7 +223,7 @@ class PrefetchScanner(scan.BaseScanner):
     def load_libmscompression(self):
         if os.name == 'nt':
             if sizeof(c_void_p) == 8:
-                lib_names = ('MSCompression','MSCompression64')
+                lib_names = ('MSCompression64',)
             else:
                 lib_names = ('MSCompression',)
         else:

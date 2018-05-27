@@ -23,7 +23,7 @@
 
 import os, sys
 
-VERSION = "2.6_commit_1bbd7bc"
+VERSION = "2.6_commit_a2dd5d34"
 
 SCAN_BLOCKSIZE = 1024 * 1024 * 10
 
