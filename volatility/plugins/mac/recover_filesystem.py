@@ -27,6 +27,7 @@
 
 import os
 import shutil
+import re
 
 import volatility.obj   as obj
 import volatility.debug as debug
@@ -57,6 +58,9 @@ class mac_recover_filesystem(mac_common.AbstractMacCommand):
 
     def _write_file(self, vnode, out_path):
         if vnode and vnode.is_valid() and vnode.is_reg():
+            # replace filename with safe character
+            if os.name == 'nt':
+                out_path = re.sub(r'[:|?|"|<|>|]', '_', out_path)
             ents = out_path.split("/")
             out_path = os.path.join(self._config.DUMP_DIR, *ents)
 
@@ -66,8 +70,14 @@ class mac_recover_filesystem(mac_common.AbstractMacCommand):
 
             if out_path.endswith("..namedfork/rsrc"):
                 ret = 0
+            # for windows
+            elif os.name == 'nt' and out_path.endswith("..namedfork\\rsrc"):
+                ret = 0
             else:
-                mac_common.write_vnode_to_file(vnode, out_path)             
+                try:
+                    mac_common.write_vnode_to_file(vnode, out_path)
+                except IOError:
+                    print "No such file or directory: %s" %out_path
                 ret = 1
         
         elif vnode.is_dir():
