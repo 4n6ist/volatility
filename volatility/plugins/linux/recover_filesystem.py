@@ -26,6 +26,7 @@
 """
 
 import os
+import re
 
 import volatility.obj   as obj
 import volatility.debug as debug
@@ -45,18 +46,22 @@ class linux_recover_filesystem(linux_common.AbstractLinuxCommand):
         if inode and inode.is_valid():
             ents = file_path.split("/")
             out_path = os.path.join(self._config.DUMP_DIR, *ents)
-
-            os.chmod(out_path, inode.i_mode & 00777)
-            os.chown(out_path, inode.i_uid, inode.i_gid)
-            os.utime(out_path, (inode.i_atime.tv_sec, inode.i_mtime.tv_sec))
-
+            try:
+                if not os.name == 'nt': 
+                   os.chmod(out_path, inode.i_mode & 00777)
+                   os.chown(out_path, inode.i_uid, inode.i_gid)
+                os.utime(out_path, (inode.i_atime.tv_sec, inode.i_mtime.tv_sec))
+            except OSError:
+                print ("Unable to handle metadata: %s" % out_path)
     def _write_file(self, ff, file_path, file_dentry):
         inode = file_dentry.d_inode
         
         if inode and inode.is_valid() and not inode.is_dir():
             ents = file_path.split("/")
             out_path = os.path.join(self._config.DUMP_DIR, *ents)
-
+            # replace filename with safe character
+            if os.name == 'nt':
+                out_path = re.sub(r'[:|?|"|<|>|]', '_', out_path)
             try:
                 fd = open(out_path, "wb")
             except IOError, e:
