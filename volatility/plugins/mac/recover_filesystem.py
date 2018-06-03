@@ -77,7 +77,7 @@ class mac_recover_filesystem(mac_common.AbstractMacCommand):
                 try:
                     mac_common.write_vnode_to_file(vnode, out_path)
                 except IOError:
-                    print "No such file or directory: %s" %out_path
+                    debug.warning("No such file or directory: %s" %out_path)
                 ret = 1
         
         elif vnode.is_dir():
