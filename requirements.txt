@@ -20,7 +20,7 @@ pycoin==0.80
 pycrypto==2.6.1
 PyInstaller==3.3.1
 pypiwin32==223
-python-registry==1.1.0
+python-registry==1.1.0a0
 pytz==2018.4
 pywin32==223
 six==1.11.0

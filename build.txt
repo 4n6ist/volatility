@@ -1,0 +1,21 @@
+1. git clone https://github.com/4n6ist/volatility.git
+$ cd volatility
+$ git checkout -b kanivola
+
+2. install Microsoft Visual C++ Compiler for Python 2.7
+http://www.microsoft.com/en-us/download/details.aspx?id=44266
+
+3. install Microsoft Visual C++ 2008 Redistributable Package x64
+https://www.microsoft.com/ja-JP/download/details.aspx?id=15336
+
+4. install yara-python-3.7.0.win-amd64-py2.7.exe
+https://www.dropbox.com/sh/umip8ndplytwzj1/AADdLRsrpJL1CM1vPVAxc5JZa?dl=0&lst=
+
+5. get dpapick and python setup.py install)
+https://bitbucket.org/jmichel/dpapick/downloads/
+
+6. install required packages
+$ pip install -r requirements.txt
+
+7. build
+$ pyintaller –onefile pyinstaller.spec –clean
