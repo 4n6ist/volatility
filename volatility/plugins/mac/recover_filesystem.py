@@ -60,7 +60,7 @@ class mac_recover_filesystem(mac_common.AbstractMacCommand):
         if vnode and vnode.is_valid() and vnode.is_reg():
             # replace filename with safe character
             if os.name == 'nt':
-                out_path = re.sub(r'[:|?|"|<|>|]', '_', out_path)
+                out_path = re.sub(r'[?|"|<|>|]', '_', out_path)
             ents = out_path.split("/")
             out_path = os.path.join(self._config.DUMP_DIR, *ents)
 

@@ -48,11 +48,11 @@ class linux_recover_filesystem(linux_common.AbstractLinuxCommand):
             out_path = os.path.join(self._config.DUMP_DIR, *ents)
             try:
                 if not os.name == 'nt': 
-                   os.chmod(out_path, inode.i_mode & 00777)
-                   os.chown(out_path, inode.i_uid, inode.i_gid)
-                os.utime(out_path, (inode.i_atime.tv_sec, inode.i_mtime.tv_sec))
+                    os.chmod(out_path, inode.i_mode & 00777)
+                    os.chown(out_path, inode.i_uid, inode.i_gid)
+                    os.utime(out_path, (inode.i_atime.tv_sec, inode.i_mtime.tv_sec))
             except OSError:
-                print ("Unable to handle metadata: %s" % out_path)
+                pass
     def _write_file(self, ff, file_path, file_dentry):
         inode = file_dentry.d_inode
         
@@ -65,7 +65,7 @@ class linux_recover_filesystem(linux_common.AbstractLinuxCommand):
             try:
                 fd = open(out_path, "wb")
             except IOError, e:
-                debug.warning("Unable to process file: %s : %s" % (out_path, str(e)))
+                # debug.warning("Unable to process file: %s : %s" % (out_path, str(e)))
                 return
                 
             for page in ff.get_file_contents(inode):
