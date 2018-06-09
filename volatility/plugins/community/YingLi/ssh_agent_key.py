@@ -447,7 +447,7 @@ class linux_ssh_keys(linux_pslist.linux_pslist):
         """
         linux_pslist.linux_pslist.__init__(self, config, *args, **kwargs)
         self._config.add_option(
-            'DUMP-DIR', default="/tmp", type='string',
+            'DUMP-DIR', short_option = 'D', default=None, type='string',
             help='Output found keys to file(s) in this dump directory.')
 
     def calculate(self):

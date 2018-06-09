@@ -366,7 +366,7 @@ class PrefetchParser(common.AbstractWindowsCommand):
         config.add_option('FULL_PATHS', default = False,
                           help = 'Print the full path the Prefetch file translates to, if possible.',
                           action = "store_true")
-        config.add_option('MAM-DIR', default = './mam-pf/',
+        config.add_option('MAM-DIR', short_option = 'D', default = None,
                           help = 'Directory which to dump MAM Compressed Prefetch.')
 
     def calculate(self):
@@ -383,7 +383,7 @@ class PrefetchParser(common.AbstractWindowsCommand):
             scanner_mam.load_libmscompression()
             debug.debug("Scanning for MAM compressed data, this can take a while.............")
             if not os.path.isdir(self._config.MAM_DIR):
-                debug.error(self._config.MAM_DIR + " is not a directory. Please specify a mam dump directory (--mam-dir)")
+                debug.error(self._config.MAM_DIR + " is not a directory. Please specify a mam dump directory (-D|--mam-dir)")
 
             for offset in scanner_mam.scan(address_space):
                 pf_header = scanner_mam.carve_mam(address_space, offset, self._config.MAM_DIR)
