@@ -23,7 +23,11 @@
 
 import os, sys
 
+<<<<<<< HEAD
 VERSION = "2.6_commit_a2dd5d34"
+=======
+VERSION = "2.6.1"
+>>>>>>> upstream/master
 
 SCAN_BLOCKSIZE = 1024 * 1024 * 10
 
